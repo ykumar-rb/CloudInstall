@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/test/PNP/libhttp"
+	"github.com/CloudInstall/libhttp"
 	"html/template"
 	"net/http"
 )
@@ -22,6 +22,18 @@ func GetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
 	tmpl, err := template.ParseFiles("templates/create/create.html")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+	tmpl.Execute(w, "")
+}
+
+func GetEdit(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+
+	tmpl, err := template.ParseFiles("templates/create/edit.html")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

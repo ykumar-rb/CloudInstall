@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/test/PNP/application"
+	"github.com/CloudInstall/application"
 )
 
 func newConfig() (*viper.Viper, error) {

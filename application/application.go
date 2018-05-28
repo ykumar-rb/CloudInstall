@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/viper"
 	"net/http"
 
-	"github.com/test/PNP/handlers"
-	"github.com/test/PNP/middlewares"
+	"github.com/CloudInstall/handlers"
+	"github.com/CloudInstall/middlewares"
 )
 
 // New is the constructor for Application struct.
@@ -42,6 +42,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.Handle("/", http.HandlerFunc(handlers.GetHome)).Methods("GET")
 	router.Handle("/create", http.HandlerFunc(handlers.GetCreate)).Methods("GET")
+	router.Handle("/edit", http.HandlerFunc(handlers.GetEdit)).Methods("GET")
 
 	// Path of static files must be last!
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
