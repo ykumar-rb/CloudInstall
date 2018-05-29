@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="65201bb2-9ee7-43b2-ac85-55a9753bfc98" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/application/application.go" afterPath="$PROJECT_DIR$/application/application.go" />
-      <change beforePath="$PROJECT_DIR$/handlers/home.go" afterPath="$PROJECT_DIR$/handlers/home.go" />
-      <change beforePath="$PROJECT_DIR$/ninja.go" afterPath="$PROJECT_DIR$/ninja.go" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html.tmpl" afterPath="$PROJECT_DIR$/templates/home.html.tmpl" />
-    </list>
+    <list default="true" id="65201bb2-9ee7-43b2-ac85-55a9753bfc98" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/application/application.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="149">
-              <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="28" />
+              <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -86,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/ninja.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -96,7 +91,7 @@
         <entry file="file://$PROJECT_DIR$/templates/create/edit.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="47" column="17" lean-forward="true" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+              <caret line="47" column="17" lean-forward="false" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -262,7 +257,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -429,7 +423,7 @@
     <entry file="file://$PROJECT_DIR$/application/application.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
-          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="28" />
+          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -437,7 +431,7 @@
     <entry file="file://$PROJECT_DIR$/ninja.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -445,7 +439,7 @@
     <entry file="file://$PROJECT_DIR$/templates/create/edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="47" column="17" lean-forward="true" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+          <caret line="47" column="17" lean-forward="false" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
           <folding />
         </state>
       </provider>
