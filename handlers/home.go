@@ -4,6 +4,7 @@ import (
 	"github.com/CloudInstall/libhttp"
 	"html/template"
 	"net/http"
+        "fmt"
 )
 
 func GetHome(w http.ResponseWriter, r *http.Request) {
@@ -40,4 +41,18 @@ func GetEdit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl.Execute(w, "")
+}
+
+func ProcessCreate(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+
+	tmpl, err := template.ParseFiles("templates/create/submit.html")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+	tmpl.Execute(w, "")
+	r.ParseForm()
+        fmt.Fprintln(w, r.Form)
 }
