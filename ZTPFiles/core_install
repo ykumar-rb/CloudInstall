@@ -1,0 +1,51 @@
+    1  cd steeloc-modify-sdp
+    2  ping oak-vcs2276.lab.nbttech.com
+    3  ip a
+    4  ls -lrt
+    5  pwd
+    6  ls
+    7  ls -lrt
+    8  pwd
+    9  cd ~
+   10  ls -lrt
+   11  pwd
+   12  ls
+   13  cd /home/rvbd/
+   14  ls -lrt
+   15  cd git-root/
+   16  ls
+   17  cd test-steeloc-qa/
+   18  ls
+   19  pwd
+   20  ls
+   21  ls -lrt
+   22  cd test_steeloc_qa/docker/
+   23  ls
+   24  vi compose/core-dns/dns/
+   25  cd ..
+   26  ls
+   27  cd ..
+   28  ls
+   29  cd ..
+   30  ls -lrt
+   31  cd test-steeloc-qa/
+   32  ls
+   33  cd docker/compose/core-dns/
+   34  ls -lrt
+   35  vi build.sh 
+   36  vi docker-compose.yml 
+   37  vi compose.sh 
+   38  scho $CORE_IMAGE
+   39  echo $CORE_IMAGE
+   40  vi compose.sh 
+   41  echo ${CORE_IMAGE}
+   42  clear
+   43  cd ~
+   44  cd /home/rvbd/
+   45  ls -lrt
+   46  cd certs/
+   47  ls -lrt
+   48  pwd
+   49  ip a
+   50  pwd
+   51  history > core_install

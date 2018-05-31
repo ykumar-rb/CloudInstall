@@ -33,7 +33,7 @@
         </h1>
 
         </br></br></br>
-       <form action="/submit" method="post" enctype="application/x-www-form-urlencoded">
+       <form action="/submit" method="post" enctype="multipart/form-data">
     <div style="margin-left: 300px;">
         <font size="4">
         <label for="name">Installation Env Name</label>
@@ -47,14 +47,15 @@
             <label for="name" >Device/Appliance Mac</label>
         </font>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type='list' name="mac" />
-        <input type='button' value = 'Add Device/Appliance' id = 'add'>
+        <input type='list' name="mac" id="mac"  >
+        <input type='button' value = 'Add Device/Appliance' id = 'add' class="clickme">
+        <input id="macvalue" style="margin-left: 200px;width: 500px" name="maclist"  required >
         </br></br>
 
         <font size="4">
             <label for="name" >Attach instruction file</label>
         </font>
-        <input type="file" name="datafile" size="40" style="margin-left: 200px;">
+        <input type="file" name="uploadfile" size="40" style="margin-left: 200px;" required>
 
         </br> </br>
         <label>
@@ -70,5 +71,18 @@
        </form>
 
     </nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var ar=[];
+        $(".clickme").click(function(){
+            var mac = $('#mac').val();
+            ar.push(mac);
+            $('#macvalue').val(ar+'');
+            $('#mac').val('');
+        });
+    });
+</script>
 
 

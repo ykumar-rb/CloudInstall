@@ -33,6 +33,7 @@
         </h1>
 
         </br></br></br>
+        <form action="/submit" method="post" enctype="multipart/form-data">
     <div style="margin-left: 300px;">
         <font size="4">
         <label for="name">Installation Env Name</label>
@@ -54,7 +55,7 @@
         </font>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type='text' id = 'mac' />
-        <input type='button' value = 'Add Device/Appliance' id = 'add'>
+        <input type='button' value = 'Add Device/Appliance' id = 'add1' class="clickme">
         </br></br>
 
         <font size="4">
@@ -73,7 +74,18 @@
         <div style="margin-left: 600px">
             <button class="button btn-info btn-lg" type="submit">Update</button>
         </div>
-
+        </form>
     </nav>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var ar=[];
+        $(".clickme").click(function(){
+            var mac = $('#mac').val();
+            ar.push(mac);
+            $('#macvalue').val(ar+',');
+            $('#mac').val('');
+        });
+    });
+</script>
