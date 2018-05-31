@@ -84,7 +84,7 @@ func ProcessCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	body := strings.NewReader(string(mapB))
-	url := "http://restapi3.apiary.io/notes"
+	url := "http://172.16.128.147:9099/pnp/environment"
 	req, err := http.NewRequest("POST", url, body)
 	if err != nil {
 		err = fmt.Errorf("error in forming the request: %s ", err)
