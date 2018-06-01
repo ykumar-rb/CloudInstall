@@ -6,14 +6,15 @@ import (
 	"github.com/tylerb/graceful"
 	"net/http"
 	"time"
-
+	"net"
+	"log"
 	"github.com/CloudInstall/application"
 )
 
 func newConfig() (*viper.Viper, error) {
 	c := viper.New()
 	c.SetDefault("cookie_secret", "00MTi32Qr4BM1u5D")
-	c.SetDefault("http_addr", ":8888")
+	c.SetDefault("http_addr", "10.73.119.127:8888")
 	c.SetDefault("http_cert_file", "")
 	c.SetDefault("http_key_file", "")
 	c.SetDefault("http_drain_interval", "1s")
@@ -21,6 +22,19 @@ func newConfig() (*viper.Viper, error) {
 	c.AutomaticEnv()
 
 	return c, nil
+}
+
+// Get preferred outbound ip of this machine
+func GetSystemIP() string {
+	conn, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+
+	return localAddr.IP.String()
 }
 
 func main() {
@@ -39,8 +53,8 @@ func main() {
 		logrus.Fatal(err)
 	}
 
-	serverAddress := config.Get("http_addr").(string)
-
+	//serverAddress := config.Get("http_addr").(string)
+	serverAddress := GetSystemIP()+ ":8888"
 	certFile := config.Get("http_cert_file").(string)
 	keyFile := config.Get("http_key_file").(string)
 	drainIntervalString := config.Get("http_drain_interval").(string)
