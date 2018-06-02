@@ -124,7 +124,7 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 		err = fmt.Errorf("error in forming the request: %s ", err)
 		return
 	}
-
+	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
