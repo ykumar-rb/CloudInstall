@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/CloudInstall/libhttp"
+	"path/filepath"
 )
 
 type ConfigEnvironment struct {
@@ -77,7 +78,16 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 	}
 	defer file.Close()
 	fmt.Fprintf(w, "%v", handler.Header)
-	filePath = "./ZTPFiles/" + handler.Filename
+	//filePath = "./ZTPFiles/" + handler.Filename
+
+	dir, err := filepath.Abs(filepath.Dir(handler.Filename))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	filePath = filepath.Join(dir,handler.Filename)
+
 	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Println(err)
@@ -125,6 +135,7 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 		return
 	}
 
+	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
