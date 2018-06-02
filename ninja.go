@@ -14,7 +14,9 @@ import (
 func newConfig() (*viper.Viper, error) {
 	c := viper.New()
 	c.SetDefault("cookie_secret", "00MTi32Qr4BM1u5D")
-	c.SetDefault("http_addr", "10.73.119.127:8888")
+	serverAddress1 := GetSystemIP()+ ":8888"
+//	c.SetDefault("http_addr", "10.73.119.127:8888")
+	c.SetDefault("http_addr", serverAddress1)
 	c.SetDefault("http_cert_file", "")
 	c.SetDefault("http_key_file", "")
 	c.SetDefault("http_drain_interval", "1s")

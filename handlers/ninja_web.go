@@ -5,10 +5,10 @@ import (
 	"html/template"
 	"net/http"
 	"fmt"
+//	"encoding/json"
+	"strings"
 	"os"
 	"io"
-	"encoding/json"
-	"strings"
 )
 
 type ConfigEnvironment struct {
@@ -45,9 +45,8 @@ func GetEdit(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, "")
 }
 
-func ProcessCreate(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
 
+func RedirectToSubmissionPage(w http.ResponseWriter){
 	tmpl, err := template.ParseFiles("templates/create/submit.html")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -55,10 +54,11 @@ func ProcessCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl.Execute(w, "")
+}
 
-	uploaded := r.Form.Get("uploadfile")
+
+func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request){
 	var filePath string
-	if uploaded != "" {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
 		if err != nil {
@@ -78,8 +78,6 @@ func ProcessCreate(w http.ResponseWriter, r *http.Request) {
 		UploadedFileName := handler.Filename
 		fmt.Printf("Uploaded file:%s filePath:%s", UploadedFileName, filePath)
 
-	}
-
 	r.ParseForm()
 	fmt.Fprintln(w, r.Form)
 	fmt.Printf("********************")
@@ -97,6 +95,11 @@ func ProcessCreate(w http.ResponseWriter, r *http.Request) {
 		isAutoUpdate = false
 	}
 
+	fmt.Printf("ENV Name:%s",envName)
+	fmt.Printf("AutoUpdate:%v",isAutoUpdate)
+	fmt.Printf("MAC List :%s",mList)
+
+	/*
 	CfgEnv := ConfigEnvironment{EnvironmentName: envName, Mac: mList,InstructionFileName:filePath,AutoUpdate: isAutoUpdate}
 	mapB, err := json.Marshal(CfgEnv)
 	if err != nil {
@@ -119,4 +122,13 @@ func ProcessCreate(w http.ResponseWriter, r *http.Request) {
 		fmt.Errorf("failed to trigger HTTP post request to PNP Server")
 	}
 	defer resp.Body.Close()
+
+	*/
+
+}
+
+func ProcessCreate(w http.ResponseWriter, r *http.Request) {
+    //SendHTTPRequestToPNPServer(w,r)
+	RedirectToSubmissionPage(w)
+	SendHTTPRequestToPNPServer(w,r)
 }
