@@ -10,8 +10,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/CloudInstall/libhttp"
 	"path/filepath"
+
+	"github.com/CloudInstall/libhttp"
 )
 
 type ConfigEnvironment struct {
@@ -68,34 +69,42 @@ func RedirectToSubmissionPage(w http.ResponseWriter, err error) {
 	}
 }
 
-func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err error) {
+func FetchAndSubmitReqToPNPServer(w http.ResponseWriter, r *http.Request, reqType string) (err error) {
 	var filePath string
+	var UploadedFileName string
+
 	r.ParseMultipartForm(32 << 20)
 	file, handler, err := r.FormFile("uploadfile")
 	if err != nil {
 		fmt.Println(err)
-		return
-	}
-	defer file.Close()
-	fmt.Fprintf(w, "%v", handler.Header)
+		if reqType == "POST" {
+			fmt.Println(err)
+			return
+		} else {
+			fmt.Println("Ignoring Empty file received in Edit Request")
+		}
+	} else {
+		defer file.Close()
+		fmt.Fprintf(w, "%v", handler.Header)
 
-	dir, err := filepath.Abs(filepath.Dir(handler.Filename))
-	if err != nil {
-		fmt.Println(err)
-		return
+		dir, err := filepath.Abs(filepath.Dir(handler.Filename))
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+
+		filePath = filepath.Join(dir, handler.Filename)
+		f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+		defer f.Close()
+		io.Copy(f, file)
+		UploadedFileName = handler.Filename
 	}
 
-	filePath = filepath.Join(dir,handler.Filename)
-	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer f.Close()
-	io.Copy(f, file)
-	UploadedFileName := handler.Filename
 	fmt.Printf("Uploaded file:%s filePath:%s", UploadedFileName, filePath)
-
 	r.ParseForm()
 	fmt.Fprintln(w, r.Form)
 	fmt.Printf("********************")
@@ -123,16 +132,24 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 		err = fmt.Errorf("error in marshalling the request to json for applying token : %s", err)
 		return
 	}
+	bodyStr := string(mapB)
+	err = SendHTTPRequestToPNPServer(bodyStr, reqType)
+	if err != nil {
+		return err
+	}
 
-	body := strings.NewReader(string(mapB))
+	return nil
+}
+
+func SendHTTPRequestToPNPServer(bodyStr string, reqType string) (err error) {
+	body := strings.NewReader(bodyStr)
 	url := "http://" + ZTP_SERVER_REST_ENDPOINT + "/pnp/environment"
 	fmt.Println("REST api for Create ENV: %s", url)
-	req, err := http.NewRequest("POST", url, body)
+	req, err := http.NewRequest(reqType, url, body)
 	if err != nil {
 		err = fmt.Errorf("error in forming the request: %s ", err)
 		return
 	}
-
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -141,10 +158,18 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 		return err
 	}
 	defer resp.Body.Close()
-	return nil
+
+	return
 }
 
 func ProcessCreate(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("**** NINJA:  CREATE Handler ****")
 	RedirectToSubmissionPage(w, nil)
-	_ = SendHTTPRequestToPNPServer(w, r)
+	_ = FetchAndSubmitReqToPNPServer(w, r, "POST")
+}
+
+func ProcessEdit(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("**** NINJA:  EDIT Handler ****")
+	RedirectToSubmissionPage(w, nil)
+	_ = FetchAndSubmitReqToPNPServer(w, r, "PUT")
 }

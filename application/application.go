@@ -43,8 +43,8 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.Handle("/web-ui-dashboard", http.HandlerFunc(handlers.GetHome)).Methods("GET")
 	router.Handle("/create", http.HandlerFunc(handlers.GetCreate)).Methods("GET")
 	router.Handle("/edit", http.HandlerFunc(handlers.GetEdit)).Methods("GET")
-        router.Handle("/submit",http.HandlerFunc(handlers.ProcessCreate)).Methods("POST")
-	// Path of static files must be last!
+	router.Handle("/submit",http.HandlerFunc(handlers.ProcessCreate)).Methods("POST")
+	router.Handle("/submit-update",http.HandlerFunc(handlers.ProcessEdit)).Methods("POST")
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
 
 	return router
