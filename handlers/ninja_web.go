@@ -78,7 +78,6 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 	}
 	defer file.Close()
 	fmt.Fprintf(w, "%v", handler.Header)
-	//filePath = "./ZTPFiles/" + handler.Filename
 
 	dir, err := filepath.Abs(filepath.Dir(handler.Filename))
 	if err != nil {
@@ -87,7 +86,6 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 	}
 
 	filePath = filepath.Join(dir,handler.Filename)
-
 	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Println(err)
@@ -110,9 +108,9 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 	mList := strings.Split(macList, ",")
 	var isAutoUpdate bool
 	if autoUpdate == "" {
-		isAutoUpdate = true
-	} else {
 		isAutoUpdate = false
+	} else {
+		isAutoUpdate = true
 	}
 
 	fmt.Printf("ENV Name:%s", envName)
@@ -147,9 +145,6 @@ func SendHTTPRequestToPNPServer(w http.ResponseWriter, r *http.Request) (err err
 }
 
 func ProcessCreate(w http.ResponseWriter, r *http.Request) {
-	//SendHTTPRequestToPNPServer(w,r)
-	//RedirectToSubmissionPage(w)
 	RedirectToSubmissionPage(w, nil)
 	_ = SendHTTPRequestToPNPServer(w, r)
-	//RedirectToSubmissionPage(w, err)
 }
