@@ -22,7 +22,7 @@ type ConfigEnvironment struct {
 	AutoUpdate          bool     `json:"AutoUpdate"`
 }
 
-const ZTP_SERVER_REST_ENDPOINT = "172.16.128.147:9099"
+var OnboarderAddr string
 
 func GetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -144,7 +144,7 @@ func FetchAndSubmitReqToPNPServer(w http.ResponseWriter, r *http.Request, reqTyp
 
 func SendHTTPRequestToPNPServer(bodyStr string, reqType string) (err error) {
 	body := strings.NewReader(bodyStr)
-	url := "http://" + ZTP_SERVER_REST_ENDPOINT + "/pnp/environment"
+	url := "http://" + OnboarderAddr + "/pnp/environment"
 	fmt.Println("REST api for Create ENV: %s", url)
 	req, err := http.NewRequest(reqType, url, body)
 	if err != nil {
