@@ -85,7 +85,7 @@ func FetchAndSubmitReqToPNPServer(w http.ResponseWriter, r *http.Request, reqTyp
 		}
 	} else {
 		defer file.Close()
-		fmt.Fprintf(w, "%v", handler.Header)
+		//fmt.Fprintf(w, "%v", handler.Header)
 
 		dir, err := filepath.Abs(filepath.Dir(handler.Filename))
 		if err != nil {
@@ -93,7 +93,8 @@ func FetchAndSubmitReqToPNPServer(w http.ResponseWriter, r *http.Request, reqTyp
 			return err
 		}
 
-		filePath = filepath.Join(dir, handler.Filename)
+		fileDir := filepath.Join(dir, "ZTPFiles")
+		filePath = filepath.Join(fileDir, handler.Filename)
 		f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			fmt.Println(err)
@@ -106,7 +107,7 @@ func FetchAndSubmitReqToPNPServer(w http.ResponseWriter, r *http.Request, reqTyp
 
 	fmt.Printf("Uploaded file:%s filePath:%s", UploadedFileName, filePath)
 	r.ParseForm()
-	fmt.Fprintln(w, r.Form)
+	//fmt.Fprintln(w, r.Form)
 	fmt.Printf("********************")
 
 	fmt.Printf(r.Form.Get("maclist"))
