@@ -6,8 +6,9 @@ import (
 	"github.com/tylerb/graceful"
 	"net/http"
 	"time"
+        "log"
 	"net"
-	"log"
+        "os"
 	"github.com/CloudInstall/application"
 	"github.com/CloudInstall/handlers"
 )
