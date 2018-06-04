@@ -9,6 +9,7 @@ import (
 	"net"
 	"log"
 	"github.com/CloudInstall/application"
+	"github.com/CloudInstall/handlers"
 )
 
 func newConfig() (*viper.Viper, error) {
@@ -40,6 +41,10 @@ func GetSystemIP() string {
 }
 
 func main() {
+	handlers.OnboarderAddr = os.Getenv("ONBOARDER_API_ADDRESS")
+	if handlers.OnboarderAddr == "" {
+		log.Fatalf("Provide \"ONBOARDER_API_ADDRESS\" environment variable")
+	}
 	config, err := newConfig()
 	if err != nil {
 		logrus.Fatal(err)
